@@ -6,11 +6,11 @@ import 'package:rick_and_morty/core/model/character.dart';
 
 import '../../core/assets/pallete.dart';
 
-class CharacterDetailInfoChip extends StatelessWidget {
+class CharacterDetailInfoChipWidget extends StatelessWidget {
   final Character character;
   final CharacterDetailInfoChipType type;
 
-  const CharacterDetailInfoChip({
+  const CharacterDetailInfoChipWidget({
     Key? key,
     required this.character,
     required this.type,

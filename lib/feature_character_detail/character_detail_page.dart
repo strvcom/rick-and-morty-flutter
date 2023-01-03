@@ -3,7 +3,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rick_and_morty/core/components/app_bar/rick_and_morty_app_bar.dart';
-import 'package:rick_and_morty/feature_character_detail/character_detail_info_chip/character_detail_info_chip.dart';
+import 'package:rick_and_morty/feature_character_detail/character_detail_info_chip/character_detail_info_chip_widget.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_info_chip/character_detail_info_chip_type.dart';
 
 import 'package:rick_and_morty/feature_character_detail/character_detail_page_arguments.dart';
@@ -56,7 +56,7 @@ class CharacterDetailPage extends StatelessWidget {
             runSpacing: 12,
             alignment: WrapAlignment.start,
             children: CharacterDetailInfoChipType.values
-                .map((type) => CharacterDetailInfoChip(character: character, type: type))
+                .map((type) => CharacterDetailInfoChipWidget(character: character, type: type))
                 .toList(),
           ),
         ],

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:rick_and_morty/core/model/character.dart';
 
-class CharacterListRow extends StatelessWidget {
+class CharacterListRowWidget extends StatelessWidget {
   final Character character;
 
-  const CharacterListRow({
+  const CharacterListRowWidget({
     Key? key,
     required this.character,
   }) : super(key: key);
