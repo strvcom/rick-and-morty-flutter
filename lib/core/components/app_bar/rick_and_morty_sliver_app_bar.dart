@@ -41,6 +41,7 @@ class RickAndMortySliverAppBar extends StatelessWidget {
           ),
         ),
         backgroundColor: theme.scaffoldBackgroundColor,
+        pinned: true,
       );
     }
   }

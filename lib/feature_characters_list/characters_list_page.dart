@@ -79,32 +79,34 @@ class _CharactersListPageState extends State<CharactersListPage> {
   }
 }
 
-class _ContentWidget extends StatelessWidget {
+class _ContentWidget extends GetView<CharacterListPageController> {
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<CharacterListPageController>();
-
     return Obx(
       () => ListView.separated(
-          itemCount: controller.characters.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 12),
-          itemBuilder: (context, index) {
-            final item = controller.characters[index];
+        itemCount: controller.characters.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 12),
+        itemBuilder: (context, index) {
+          final item = controller.characters[index];
 
-            if (item.isLoding) {
-              return const PlatformActivityIndicator();
-            } else {
-              return GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () => Get.toNamed(
-                  CharacterDetailPage.routeName,
-                  arguments: CharacterDetailPageArguments(item.character!),
-                ),
-                child: CharacterListRow(character: item.character!),
-              );
-            }
-          },
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+          if (item.isLoding) {
+            return const PlatformActivityIndicator();
+          } else {
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => Get.toNamed(
+                CharacterDetailPage.routeName,
+                arguments: CharacterDetailPageArguments(item.character!),
+              ),
+              child: CharacterListRow(character: item.character!),
+            );
+          }
+        },
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
+      ),
     );
   }
 }
