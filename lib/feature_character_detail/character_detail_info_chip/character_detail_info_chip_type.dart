@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../core/model/character.dart';
+import 'package:rick_and_morty/core/model/character.dart';
 
 enum CharacterDetailInfoChipType { name, species, gender, origin, location }
 

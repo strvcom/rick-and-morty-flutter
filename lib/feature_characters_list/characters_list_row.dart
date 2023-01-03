@@ -19,13 +19,16 @@ class CharacterListRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ExtendedImage.network(
-          character.imageUrl,
-          width: 110,
-          height: 110,
-          fit: BoxFit.fill,
-          shape: BoxShape.rectangle,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        Hero(
+          tag: character.id,
+          child: ExtendedImage.network(
+            character.imageUrl,
+            width: 110,
+            height: 110,
+            fit: BoxFit.fill,
+            shape: BoxShape.rectangle,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+          ),
         ),
         const SizedBox(width: 16),
         Expanded(

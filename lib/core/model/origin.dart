@@ -13,12 +13,6 @@ class Origin {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-    };
-  }
-
   factory Origin.fromMap(Map<String, dynamic> map) {
     return Origin(
       name: map['name'] as String,

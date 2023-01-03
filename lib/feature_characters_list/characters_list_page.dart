@@ -6,76 +6,55 @@ import 'package:rick_and_morty/core/components/platform_activity_indicator.dart'
 
 import 'package:rick_and_morty/core/components/app_bar/rick_and_morty_sliver_app_bar.dart';
 import 'package:rick_and_morty/core/components/rick_and_morty_loading_indicator.dart';
+import 'package:rick_and_morty/core/localization/app_locale.dart';
 import 'package:rick_and_morty/core/utils/snackbar.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_page.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_page_arguments.dart';
 import 'package:rick_and_morty/feature_characters_list/characters_list_page_controller.dart';
 import 'package:rick_and_morty/feature_characters_list/characters_list_row.dart';
 
-import '../core/localization/app_locale.dart';
-
 final _key = GlobalKey<NestedScrollViewState>();
 
-// CharactersListScreen is stateful widget, because we need to add listeners
-// to nested scroll controller in order to load more characters.
-class CharactersListPage extends StatefulWidget {
+class CharactersListPage extends GetView<CharacterListPageController> {
   static const routeName = '/characters';
 
   const CharactersListPage({super.key});
 
   @override
-  State<CharactersListPage> createState() => _CharactersListPageState();
-}
-
-class _CharactersListPageState extends State<CharactersListPage> {
-  @override
-  void initState() {
-    _initPagination();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final controller = Get.find<CharacterListPageController>();
-
     return Scaffold(
-      body: NestedScrollView(
-        key: _key,
-        headerSliverBuilder: (context, innerBoxIsScrolled) =>
-            [RickAndMortySliverAppBar(title: AppLocaleKey.charactersTitle.tr)],
-        body: SafeArea(
-          top: false,
-          child: controller.obx(
-            onLoading: const RickAndMortyLoadingIndicator(),
-            onError: (message) => _ErrorWidget(message: message ?? ""),
-            (state) => _ContentWidget(),
+      body: NotificationListener(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification) {
+            if (notification.metrics.extentAfter < 50) {
+              final characterListController = Get.find<CharacterListPageController>();
+
+              characterListController.loadMoreCharacters().onError((error, stackTrace) {
+                showErrorSnackbar(
+                  error,
+                  context,
+                );
+              });
+            }
+          }
+
+          return false;
+        },
+        child: NestedScrollView(
+          key: _key,
+          headerSliverBuilder: (context, innerBoxIsScrolled) =>
+              [RickAndMortySliverAppBar(title: AppLocaleKey.charactersTitle.tr)],
+          body: SafeArea(
+            top: false,
+            child: controller.obx(
+              onLoading: const RickAndMortyLoadingIndicator(),
+              onError: (message) => _ErrorWidget(message: message ?? ""),
+              (state) => _ContentWidget(),
+            ),
           ),
         ),
       ),
     );
-  }
-
-  _initPagination() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final controller = _key.currentState?.innerController;
-
-      if (controller != null) {
-        controller.addListener(() async {
-          if (controller.position.pixels + 200 > controller.position.maxScrollExtent) {
-            final characterListController = Get.find<CharacterListPageController>();
-
-            try {
-              await characterListController.loadMoreCharacters();
-            } catch (error) {
-              showErrorSnackbar(
-                error,
-                context,
-              );
-            }
-          }
-        });
-      }
-    });
   }
 }
 
@@ -90,7 +69,10 @@ class _ContentWidget extends GetView<CharacterListPageController> {
           final item = controller.characters[index];
 
           if (item.isLoding) {
-            return const PlatformActivityIndicator();
+            return const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: PlatformActivityIndicator(),
+            );
           } else {
             return GestureDetector(
               behavior: HitTestBehavior.opaque,

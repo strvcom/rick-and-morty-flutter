@@ -34,11 +34,14 @@ class CharacterDetailPage extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            child: ExtendedImage.network(
-              character.imageUrl,
-              fit: BoxFit.fill,
-              shape: BoxShape.rectangle,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            child: Hero(
+              tag: character.id,
+              child: ExtendedImage.network(
+                character.imageUrl,
+                fit: BoxFit.fill,
+                shape: BoxShape.rectangle,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
             ),
           ),
           const SizedBox(height: 16),

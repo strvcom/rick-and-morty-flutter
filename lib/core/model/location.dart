@@ -12,12 +12,6 @@ class Location {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-    };
-  }
-
   factory Location.fromMap(Map<String, dynamic> map) {
     return Location(
       name: map['name'] as String,

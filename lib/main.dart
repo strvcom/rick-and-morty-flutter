@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:get/instance_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:rick_and_morty/application/app_config.dart';
 import 'package:rick_and_morty/application/rick_and_morty_app.dart';
-import 'package:rick_and_morty/core/model/endpoint.dart';
 
 void main() {
   _setupFimber();
@@ -28,7 +28,7 @@ void _setupFimber() {
 
 void _setupDIO() {
   var dio = Dio();
-  dio.options.baseUrl = Endpoint.host;
+  dio.options.baseUrl = AppConfig.host;
   dio.interceptors.add(PrettyDioLogger());
   Get.put(dio, permanent: true);
 }

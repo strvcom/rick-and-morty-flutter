@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:rick_and_morty/core/localization/app_locale.dart';
 
 void showErrorSnackbar(
-  Object error,
+  Object? error,
   BuildContext context,
 ) {
   final theme = Theme.of(context);
