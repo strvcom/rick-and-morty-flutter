@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:rick_and_morty/application/app_config.dart';
 import 'package:rick_and_morty/core/model/characters_response.dart';
 import 'package:rick_and_morty/core/model/pagination_info.dart';
-import 'package:rick_and_morty/feature_characters_list/character_list_item.dart';
+import 'package:rick_and_morty/feature_characters_list/model/character_list_item.dart';
 
 class CharacterListPageController extends GetxController with StateMixin {
   final characters = <CharacterListItem>[].obs;

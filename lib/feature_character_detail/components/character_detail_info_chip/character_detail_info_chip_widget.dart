@@ -1,10 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:rick_and_morty/feature_character_detail/character_detail_info_chip/character_detail_info_chip_type.dart';
+import 'package:rick_and_morty/core/assets/pallete.dart';
+import 'package:rick_and_morty/feature_character_detail/components/character_detail_info_chip/character_detail_info_chip_type.dart';
 import 'package:rick_and_morty/core/model/character.dart';
-
-import '../../core/assets/pallete.dart';
 
 class CharacterDetailInfoChipWidget extends StatelessWidget {
   final Character character;

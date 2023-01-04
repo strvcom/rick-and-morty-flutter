@@ -11,7 +11,7 @@ import 'package:rick_and_morty/core/utils/snackbar.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_page.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_page_arguments.dart';
 import 'package:rick_and_morty/feature_characters_list/characters_list_page_controller.dart';
-import 'package:rick_and_morty/feature_characters_list/characters_list_row_widget.dart';
+import 'package:rick_and_morty/feature_characters_list/components/characters_list_row_widget.dart';
 
 final _key = GlobalKey<NestedScrollViewState>();
 
