@@ -27,9 +27,7 @@ class CharactersListPage extends GetView<CharacterListPageController> {
         onNotification: (notification) {
           if (notification is ScrollUpdateNotification) {
             if (notification.metrics.extentAfter < 50) {
-              final characterListController = Get.find<CharacterListPageController>();
-
-              characterListController.loadMoreCharacters().onError((error, stackTrace) {
+              controller.loadMoreCharacters().onError((error, stackTrace) {
                 showErrorSnackbar(
                   error,
                   context,
@@ -74,13 +72,12 @@ class _ContentWidget extends GetView<CharacterListPageController> {
               child: PlatformActivityIndicator(),
             );
           } else {
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
+            return CharacterListRowWidget(
+              character: item.character!,
               onTap: () => Get.toNamed(
                 CharacterDetailPage.routeName,
                 arguments: CharacterDetailPageArguments(item.character!),
               ),
-              child: CharacterListRowWidget(character: item.character!),
             );
           }
         },

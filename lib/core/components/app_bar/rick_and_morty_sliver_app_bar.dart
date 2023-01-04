@@ -40,6 +40,8 @@ class RickAndMortySliverAppBar extends StatelessWidget {
             style: theme.textTheme.headlineSmall,
           ),
         ),
+        scrolledUnderElevation: 4,
+        shadowColor: Theme.of(context).shadowColor.withOpacity(0.4),
         backgroundColor: theme.scaffoldBackgroundColor,
         pinned: true,
       );
