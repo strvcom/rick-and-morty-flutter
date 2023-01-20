@@ -5,6 +5,7 @@ enum SupportedPlatform {
   android,
   iOS,
   web,
+  macos,
 }
 
 extension CurrentPlatform on SupportedPlatform {
@@ -18,6 +19,8 @@ extension CurrentPlatform on SupportedPlatform {
       return SupportedPlatform.android;
     } else if (Platform.isIOS) {
       return SupportedPlatform.iOS;
+    } else if (Platform.isMacOS) {
+      return SupportedPlatform.macos;
     } else {
       throw Exception("Trying to build project on not supported platform");
     }

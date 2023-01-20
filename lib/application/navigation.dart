@@ -31,6 +31,7 @@ class Navigation {
       case (SupportedPlatform.android):
         return AppTheme.fadeInAnimationDuration;
       case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
         return AppTheme.cupertinoAnimationDuration;
     }
   }
@@ -41,6 +42,7 @@ class Navigation {
       case (SupportedPlatform.android):
         return Transition.fadeIn;
       case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
         return Transition.cupertino;
     }
   }

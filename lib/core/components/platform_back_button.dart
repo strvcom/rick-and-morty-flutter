@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/application/supported_platform.dart';
@@ -24,6 +22,7 @@ class PlatformBackButton extends StatelessWidget {
           onPressed: onPressed,
         );
       case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
         return CupertinoNavigationBarBackButton(
           color: color,
           onPressed: onPressed,

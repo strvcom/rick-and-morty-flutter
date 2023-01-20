@@ -23,6 +23,7 @@ class RickAndMortySliverAppBar extends StatelessWidget {
       case (SupportedPlatform.android):
         return _materialSliverAppBar(theme);
       case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
         return _cupertinoSliverAppBar(theme);
     }
   }

@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +31,7 @@ class RickAndMortyAppBar extends StatelessWidget implements PreferredSizeWidget 
       case (SupportedPlatform.android):
         return _materialAppBar(theme);
       case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
         return _cupertinoNavigationBar(theme);
     }
   }
@@ -44,6 +43,7 @@ class RickAndMortyAppBar extends StatelessWidget implements PreferredSizeWidget 
       case (SupportedPlatform.android):
         return const Size.fromHeight(kToolbarHeight);
       case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
         return const Size.fromHeight(kMinInteractiveDimensionCupertino);
     }
   }
