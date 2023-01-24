@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:get/route_manager.dart';
+import 'package:rick_and_morty/application/supported_platform.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_page.dart';
 import 'package:rick_and_morty/feature_character_detail/character_detail_page_arguments.dart';
 import 'package:rick_and_morty/feature_characters_list/characters_list_bindings.dart';
@@ -27,10 +26,24 @@ class Navigation {
   ];
 
   static Duration get platformPushDuration {
-    return Platform.isAndroid ? AppTheme.fadeInAnimationDuration : AppTheme.cupertinoAnimationDuration;
+    switch (CurrentPlatform.current) {
+      case (SupportedPlatform.web):
+      case (SupportedPlatform.android):
+        return AppTheme.fadeInAnimationDuration;
+      case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
+        return AppTheme.cupertinoAnimationDuration;
+    }
   }
 
   static Transition get platformPushTransition {
-    return Platform.isAndroid ? Transition.fadeIn : Transition.cupertino;
+    switch (CurrentPlatform.current) {
+      case (SupportedPlatform.web):
+      case (SupportedPlatform.android):
+        return Transition.fadeIn;
+      case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
+        return Transition.cupertino;
+    }
   }
 }

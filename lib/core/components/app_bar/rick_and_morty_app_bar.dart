@@ -1,10 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:rick_and_morty/application/app_theme.dart';
+import 'package:rick_and_morty/application/supported_platform.dart';
 import 'package:rick_and_morty/core/components/platform_back_button.dart';
 
 class RickAndMortyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -28,30 +26,50 @@ class RickAndMortyAppBar extends StatelessWidget implements PreferredSizeWidget 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    if (Platform.isIOS) {
-      return CupertinoNavigationBar(
-        leading: leading,
-        middle: Text(
-          title,
-          style: AppTheme.cupertinoNavigationBarTitleTextStyle(theme.colorScheme),
-        ),
-        backgroundColor: theme.scaffoldBackgroundColor,
-      );
-    } else {
-      return AppBar(
-        leading: leading,
-        title: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            title,
-            style: theme.textTheme.headlineSmall,
-          ),
-        ),
-        backgroundColor: theme.scaffoldBackgroundColor,
-      );
+    switch (CurrentPlatform.current) {
+      case (SupportedPlatform.web):
+      case (SupportedPlatform.android):
+        return _materialAppBar(theme);
+      case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
+        return _cupertinoNavigationBar(theme);
     }
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(Platform.isIOS ? kMinInteractiveDimensionCupertino : kToolbarHeight);
+  Size get preferredSize {
+    switch (CurrentPlatform.current) {
+      case (SupportedPlatform.web):
+      case (SupportedPlatform.android):
+        return const Size.fromHeight(kToolbarHeight);
+      case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
+        return const Size.fromHeight(kMinInteractiveDimensionCupertino);
+    }
+  }
+
+  Widget _materialAppBar(ThemeData theme) {
+    return AppBar(
+      leading: leading,
+      title: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: theme.textTheme.headlineSmall,
+        ),
+      ),
+      backgroundColor: theme.scaffoldBackgroundColor,
+    );
+  }
+
+  Widget _cupertinoNavigationBar(ThemeData theme) {
+    return CupertinoNavigationBar(
+      leading: leading,
+      middle: Text(
+        title,
+        style: AppTheme.cupertinoNavigationBarTitleTextStyle(theme.colorScheme),
+      ),
+      backgroundColor: theme.scaffoldBackgroundColor,
+    );
+  }
 }

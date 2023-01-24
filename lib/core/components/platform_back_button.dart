@@ -1,8 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/application/supported_platform.dart';
 
 class PlatformBackButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -16,16 +14,19 @@ class PlatformBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.secondary;
 
-    if (Platform.isIOS) {
-      return CupertinoNavigationBarBackButton(
-        color: color,
-        onPressed: onPressed,
-      );
-    } else {
-      return BackButton(
-        color: color,
-        onPressed: onPressed,
-      );
+    switch (CurrentPlatform.current) {
+      case (SupportedPlatform.web):
+      case (SupportedPlatform.android):
+        return BackButton(
+          color: color,
+          onPressed: onPressed,
+        );
+      case (SupportedPlatform.iOS):
+      case (SupportedPlatform.macos):
+        return CupertinoNavigationBarBackButton(
+          color: color,
+          onPressed: onPressed,
+        );
     }
   }
 }
