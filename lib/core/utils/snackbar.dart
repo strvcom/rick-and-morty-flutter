@@ -18,7 +18,7 @@ void showErrorSnackbar(
         error.toString(),
         style: theme.textTheme.labelSmall,
       ),
-      backgroundColor: theme.errorColor,
+      backgroundColor: theme.colorScheme.error,
       duration: const Duration(seconds: 5),
       margin: const EdgeInsets.all(16),
       borderRadius: 12,

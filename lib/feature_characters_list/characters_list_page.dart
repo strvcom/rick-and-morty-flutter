@@ -23,32 +23,16 @@ class CharactersListPage extends GetView<CharacterListPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener(
-        onNotification: (notification) {
-          if (notification is ScrollUpdateNotification) {
-            if (notification.metrics.extentAfter < 50) {
-              controller.loadMoreCharacters().onError((error, stackTrace) {
-                showErrorSnackbar(
-                  error,
-                  context,
-                );
-              });
-            }
-          }
-
-          return false;
-        },
-        child: NestedScrollView(
-          key: _key,
-          headerSliverBuilder: (context, innerBoxIsScrolled) =>
-              [RickAndMortySliverAppBar(title: AppLocaleKey.charactersTitle.tr)],
-          body: SafeArea(
-            top: false,
-            child: controller.obx(
-              onLoading: const RickAndMortyLoadingIndicator(),
-              onError: (message) => _ErrorWidget(message: message ?? ""),
-              (state) => _ContentWidget(),
-            ),
+      body: NestedScrollView(
+        key: _key,
+        headerSliverBuilder: (context, innerBoxIsScrolled) =>
+            [RickAndMortySliverAppBar(title: AppLocaleKey.charactersTitle.tr)],
+        body: SafeArea(
+          top: false,
+          child: controller.obx(
+            onLoading: const RickAndMortyLoadingIndicator(),
+            onError: (message) => _ErrorWidget(message: message ?? ""),
+            (state) => _ContentWidget(),
           ),
         ),
       ),
@@ -59,31 +43,47 @@ class CharactersListPage extends GetView<CharacterListPageController> {
 class _ContentWidget extends GetView<CharacterListPageController> {
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => ListView.separated(
-        itemCount: controller.characters.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 12),
-        itemBuilder: (context, index) {
-          final item = controller.characters[index];
-
-          if (item.isLoding) {
-            return const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: PlatformActivityIndicator(),
-            );
-          } else {
-            return CharacterListRowWidget(
-              character: item.character!,
-              onTap: () => Get.toNamed(
-                CharacterDetailPage.routeName,
-                arguments: CharacterDetailPageArguments(item.character!),
-              ),
-            );
+    return NotificationListener(
+      onNotification: (notification) {
+        if (notification is ScrollUpdateNotification) {
+          if (notification.metrics.extentAfter < 50) {
+            controller.loadMoreCharacters().onError((error, stackTrace) {
+              showErrorSnackbar(
+                error,
+                context,
+              );
+            });
           }
-        },
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
+        }
+
+        return false;
+      },
+      child: Obx(
+        () => ListView.separated(
+          itemCount: controller.characters.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 12),
+          itemBuilder: (context, index) {
+            final item = controller.characters[index];
+
+            if (item.isLoding) {
+              return const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: PlatformActivityIndicator(),
+              );
+            } else {
+              return CharacterListRowWidget(
+                character: item.character!,
+                onTap: () => Get.toNamed(
+                  CharacterDetailPage.routeName,
+                  arguments: CharacterDetailPageArguments(item.character!),
+                ),
+              );
+            }
+          },
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
         ),
       ),
     );
