@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rick_and_morty/core/components/app_bar/rick_and_morty_app_bar.dart';
 import 'package:rick_and_morty/core/localization/app_locale.dart';
-import 'package:rick_and_morty/features/character_detail/character_detail_page_controller.dart';
+import 'package:rick_and_morty/core/model/character.dart';
 import 'package:rick_and_morty/features/character_detail/components/character_detail_info_chip_type.dart';
 import 'package:rick_and_morty/features/character_detail/components/character_detail_info_chip_widget.dart';
 
-class CharacterDetailPage extends GetView<CharacterDetailPageController> {
+class CharacterDetailPage extends StatelessWidget {
   static const routeName = "/characterDetail";
+  late Character character;
 
-  const CharacterDetailPage({
+  CharacterDetailPage({
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +19,7 @@ class CharacterDetailPage extends GetView<CharacterDetailPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: RickAndMortyAppBar.backButtonBar(
-        title: controller.character.name,
+        title: "ToDo Title",
         onPressed: () => Get.back(),
       ),
       body: ListView(
@@ -27,9 +28,9 @@ class CharacterDetailPage extends GetView<CharacterDetailPageController> {
           SizedBox(
             width: double.infinity,
             child: Hero(
-              tag: controller.character.id,
+              tag: "ToDo Item ID",
               child: ExtendedImage.network(
-                controller.character.imageUrl,
+                "ToDo Image URL",
                 fit: BoxFit.fill,
                 shape: BoxShape.rectangle,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -48,7 +49,7 @@ class CharacterDetailPage extends GetView<CharacterDetailPageController> {
             runSpacing: 12,
             alignment: WrapAlignment.start,
             children: CharacterDetailInfoChipType.values
-                .map((type) => CharacterDetailInfoChipWidget(character: controller.character, type: type))
+                .map((type) => CharacterDetailInfoChipWidget(character: character, type: type))
                 .toList(),
           ),
         ],
