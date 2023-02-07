@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:rick_and_morty/application/app_config.dart';
+import 'package:rick_and_morty/app/app_config.dart';
 import 'package:rick_and_morty/core/model/characters_response.dart';
 
 abstract class GetCharactersUseCase {

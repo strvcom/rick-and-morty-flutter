@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:get/instance_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:rick_and_morty/application/app_config.dart';
-import 'package:rick_and_morty/application/rick_and_morty_app.dart';
+import 'package:rick_and_morty/app/app_config.dart';
+import 'package:rick_and_morty/app/app.dart';
 
 void main() {
   _setupFimber();
   _setupDIO();
 
-  runApp(const RickAndMortyApp());
+  runApp(const App());
 }
 
 void _setupFimber() {

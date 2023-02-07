@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:rick_and_morty/application/app_theme.dart';
+import 'package:rick_and_morty/app/app_theme.dart';
 import 'package:rick_and_morty/core/localization/app_locale.dart';
-import 'package:rick_and_morty/feature_characters_list/characters_list_page.dart';
+import 'package:rick_and_morty/features/characters_list/characters_list_page.dart';
 
 import 'navigation.dart';
 
-class RickAndMortyApp extends StatelessWidget {
-  const RickAndMortyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {

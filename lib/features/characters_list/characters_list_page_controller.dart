@@ -1,20 +1,13 @@
 import 'package:flutter_fimber/flutter_fimber.dart';
 import 'package:get/get.dart';
 import 'package:rick_and_morty/core/model/pagination_info.dart';
-import 'package:rick_and_morty/feature_characters_list/data/get_characters_use_case.dart';
-import 'package:rick_and_morty/feature_characters_list/model/character_list_item.dart';
+import 'package:rick_and_morty/features/characters_list/data/get_characters_use_case.dart';
+import 'package:rick_and_morty/features/characters_list/model/character_list_item.dart';
 
 class CharacterListPageController extends GetxController with StateMixin {
   final _getCharactersUseCase = Get.find<GetCharactersUseCase>();
-  PaginationInfo? _lastPage;
-
-  bool get _isLoadingMoreCharacters {
-    if (characters.isEmpty) return false;
-
-    return characters.last.isLoding;
-  }
-
   final characters = <CharacterListItem>[].obs;
+  PaginationInfo? _lastPage;
 
   @override
   Future<void> onInit() async {
@@ -27,8 +20,20 @@ class CharacterListPageController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
+  Future<void> _loadCharacters() async {
+    try {
+      final result = await _getCharactersUseCase.get();
+
+      _lastPage = result.info;
+
+      characters.addAll(result.results.map((character) => CharacterListItem(character: character)));
+    } catch (error) {
+      change(null, status: RxStatus.error());
+    }
+  }
+
   Future<void> loadMoreCharacters() async {
-    if (_lastPage == null || _isLoadingMoreCharacters) return;
+    if (_lastPage == null) return;
 
     Fimber.i("Pain load more data");
 
@@ -40,17 +45,5 @@ class CharacterListPageController extends GetxController with StateMixin {
 
     characters.removeLast();
     characters.addAll(result.results.map((character) => CharacterListItem(character: character)));
-  }
-
-  Future<void> _loadCharacters() async {
-    try {
-      final result = await _getCharactersUseCase.get();
-
-      _lastPage = result.info;
-
-      characters.addAll(result.results.map((character) => CharacterListItem(character: character)));
-    } catch (error) {
-      change(null, status: RxStatus.error());
-    }
   }
 }

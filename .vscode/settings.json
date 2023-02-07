@@ -95,6 +95,10 @@
         "android/**/*.keystore": true,
         "android/**/*.jks": true
     },
+    // Material Icons theme
+    "material-icon-theme.folders.associations": {
+        "features": "container",
+    },
     // ToDo Highlight color settings
     "todohighlight.isEnable": true,
     "todohighlight.isCaseSensitive": true,
@@ -129,5 +133,5 @@
             "isWholeLine": true,
             "backgroundColor": "rgba(0,0,0,0)",
         }
-    ]
+    ],
 }
